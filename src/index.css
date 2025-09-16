@@ -2,95 +2,142 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
+/* Smart Crop Advisory System Design System - Agricultural Theme
+All colors MUST be HSL for consistent theming.
 */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Agricultural color palette */
+    --background: 120 20% 98%;
+    --foreground: 120 10% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 120 10% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 120 10% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Deep agricultural green as primary */
+    --primary: 100 60% 25%;
+    --primary-foreground: 0 0% 98%;
+    --primary-glow: 100 40% 45%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Warm earth brown as secondary */
+    --secondary: 30 35% 85%;
+    --secondary-foreground: 30 60% 20%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 120 15% 95%;
+    --muted-foreground: 120 10% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Sky blue accent for weather */
+    --accent: 210 70% 85%;
+    --accent-foreground: 210 70% 25%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 70% 55%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Success green for healthy crops */
+    --success: 120 50% 45%;
+    --success-foreground: 0 0% 98%;
 
-    --radius: 0.5rem;
+    /* Warning amber for alerts */
+    --warning: 45 95% 55%;
+    --warning-foreground: 45 100% 15%;
 
-    --sidebar-background: 0 0% 98%;
+    /* Info blue for water/irrigation */
+    --info: 200 90% 55%;
+    --info-foreground: 0 0% 98%;
 
-    --sidebar-foreground: 240 5.3% 26.1%;
+    --border: 120 15% 88%;
+    --input: 120 15% 92%;
+    --ring: 100 60% 25%;
 
-    --sidebar-primary: 240 5.9% 10%;
+    --radius: 0.75rem;
 
+    /* Agricultural gradients */
+    --gradient-earth: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-sky: linear-gradient(180deg, hsl(210 70% 85%), hsl(210 50% 92%));
+    --gradient-crop: linear-gradient(45deg, hsl(var(--success)), hsl(120 40% 55%));
+    --gradient-harvest: linear-gradient(315deg, hsl(45 85% 65%), hsl(30 70% 55%));
+
+    /* Shadows with agricultural theme */
+    --shadow-earth: 0 4px 20px -4px hsl(var(--primary) / 0.15);
+    --shadow-crop: 0 8px 32px -8px hsl(var(--success) / 0.2);
+    --shadow-glow: 0 0 32px hsl(var(--primary-glow) / 0.3);
+
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    --sidebar-background: 120 25% 97%;
+    --sidebar-foreground: 120 15% 25%;
+    --sidebar-primary: 100 60% 25%;
     --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 120 20% 94%;
+    --sidebar-accent-foreground: 120 15% 25%;
+    --sidebar-border: 120 15% 88%;
+    --sidebar-ring: 100 60% 25%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    /* Dark mode agricultural theme */
+    --background: 120 15% 8%;
+    --foreground: 120 10% 92%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 120 20% 12%;
+    --card-foreground: 120 10% 92%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 120 20% 12%;
+    --popover-foreground: 120 10% 92%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 100 45% 55%;
+    --primary-foreground: 120 15% 8%;
+    --primary-glow: 100 55% 65%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 120 15% 18%;
+    --secondary-foreground: 120 10% 92%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 120 15% 15%;
+    --muted-foreground: 120 10% 65%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 210 40% 25%;
+    --accent-foreground: 210 40% 92%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --success: 120 45% 55%;
+    --success-foreground: 120 15% 8%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --warning: 45 80% 65%;
+    --warning-foreground: 45 100% 15%;
+
+    --info: 200 70% 65%;
+    --info-foreground: 200 100% 15%;
+
+    --destructive: 0 60% 55%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 120 15% 22%;
+    --input: 120 15% 18%;
+    --ring: 100 45% 55%;
+
+    /* Dark gradients */
+    --gradient-earth: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-sky: linear-gradient(180deg, hsl(210 40% 25%), hsl(210 30% 35%));
+    --gradient-crop: linear-gradient(45deg, hsl(var(--success)), hsl(120 35% 65%));
+    --gradient-harvest: linear-gradient(315deg, hsl(45 70% 65%), hsl(30 60% 55%));
+
+    --shadow-earth: 0 4px 20px -4px hsl(var(--primary) / 0.25);
+    --shadow-crop: 0 8px 32px -8px hsl(var(--success) / 0.3);
+    --shadow-glow: 0 0 32px hsl(var(--primary-glow) / 0.4);
+
+    --sidebar-background: 120 20% 10%;
+    --sidebar-foreground: 120 10% 85%;
+    --sidebar-primary: 100 45% 55%;
+    --sidebar-primary-foreground: 120 15% 8%;
+    --sidebar-accent: 120 15% 15%;
+    --sidebar-accent-foreground: 120 10% 85%;
+    --sidebar-border: 120 15% 22%;
+    --sidebar-ring: 100 45% 55%;
   }
 }
 
@@ -100,6 +147,84 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-muted;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-primary/20 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary/30;
+  }
+}
+
+@layer components {
+  /* Agricultural animation utilities */
+  .animate-grow {
+    animation: grow 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  @keyframes grow {
+    0% {
+      transform: scale(0.8);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 0 20px hsl(var(--primary) / 0.1);
+    }
+    50% {
+      box-shadow: 0 0 40px hsl(var(--primary) / 0.3);
+    }
+  }
+
+  /* Gradient backgrounds */
+  .bg-gradient-earth {
+    background: var(--gradient-earth);
+  }
+
+  .bg-gradient-sky {
+    background: var(--gradient-sky);
+  }
+
+  .bg-gradient-crop {
+    background: var(--gradient-crop);
+  }
+
+  .bg-gradient-harvest {
+    background: var(--gradient-harvest);
   }
 }
