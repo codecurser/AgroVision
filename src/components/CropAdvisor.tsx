@@ -5,7 +5,9 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
+import { CropMLService, SoilData, CropRecommendation } from '@/services/CropMLService';
 import { 
   Sprout, 
   Thermometer, 
@@ -18,25 +20,13 @@ import {
   TrendingUp,
   Leaf,
   Sun,
-  CloudRain
+  CloudRain,
+  AlertTriangle,
+  CheckCircle,
+  Lightbulb,
+  Target,
+  Zap
 } from 'lucide-react';
-
-interface SoilData {
-  soil_ph: number;
-  moisture: number;
-  temperature_c: number;
-  rainfall_mm: number;
-  region: string;
-  season: string;
-}
-
-interface CropRecommendation {
-  crop: string;
-  confidence: number;
-  suitability_score: number;
-  fertilizer_suggestion: string;
-  notes: string;
-}
 
 export const CropAdvisor = () => {
   const { toast } = useToast();
@@ -51,44 +41,36 @@ export const CropAdvisor = () => {
   const [recommendations, setRecommendations] = useState<CropRecommendation[]>([]);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [isListening, setIsListening] = useState(false);
+  const [mlService] = useState(() => CropMLService.getInstance());
 
   const analyzeAndRecommend = async () => {
     setIsAnalyzing(true);
     
-    // Simulate ML prediction with realistic agricultural logic
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    const mockRecommendations: CropRecommendation[] = [
-      {
-        crop: 'Rice',
-        confidence: 92,
-        suitability_score: 88,
-        fertilizer_suggestion: 'NPK 20:10:10 at 200kg/hectare',
-        notes: 'Ideal moisture and temperature conditions for rice cultivation'
-      },
-      {
-        crop: 'Wheat',
-        confidence: 78,
-        suitability_score: 75,
-        fertilizer_suggestion: 'Urea 46% at 150kg/hectare',
-        notes: 'Good soil pH, consider supplemental irrigation'
-      },
-      {
-        crop: 'Sugarcane',
-        confidence: 85,
-        suitability_score: 82,
-        fertilizer_suggestion: 'Complex fertilizer 12:32:16 at 300kg/hectare',
-        notes: 'Excellent moisture levels, optimal for sugarcane growth'
-      }
-    ];
+    try {
+      toast({
+        title: "Initializing ML Model",
+        description: "Loading agricultural intelligence...",
+      });
 
-    setRecommendations(mockRecommendations);
-    setIsAnalyzing(false);
-    
-    toast({
-      title: "Analysis Complete",
-      description: "Crop recommendations generated successfully",
-    });
+      // Use the real ML service for predictions
+      const mlRecommendations = await mlService.predictCrops(soilData);
+      
+      setRecommendations(mlRecommendations);
+      
+      toast({
+        title: "ML Analysis Complete",
+        description: `Generated ${mlRecommendations.length} crop recommendations`,
+      });
+    } catch (error) {
+      console.error('ML prediction failed:', error);
+      toast({
+        title: "Analysis Error",
+        description: "Failed to generate recommendations. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsAnalyzing(false);
+    }
   };
 
   const startVoiceInput = () => {
@@ -225,6 +207,43 @@ export const CropAdvisor = () => {
               </div>
             </div>
 
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="region" className="flex items-center gap-2">
+                  <MapPin className="h-4 w-4" />
+                  Region
+                </Label>
+                <select
+                  id="region"
+                  value={soilData.region}
+                  onChange={(e) => setSoilData(prev => ({ ...prev, region: e.target.value }))}
+                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                >
+                  <option value="north">North</option>
+                  <option value="south">South</option>
+                  <option value="east">East</option>
+                  <option value="west">West</option>
+                  <option value="central">Central</option>
+                </select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="season" className="flex items-center gap-2">
+                  <Calendar className="h-4 w-4" />
+                  Season
+                </Label>
+                <select
+                  id="season"
+                  value={soilData.season}
+                  onChange={(e) => setSoilData(prev => ({ ...prev, season: e.target.value }))}
+                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                >
+                  <option value="kharif">Kharif (Summer)</option>
+                  <option value="rabi">Rabi (Winter)</option>
+                </select>
+              </div>
+            </div>
+
             <div className="flex gap-4">
               <Button 
                 onClick={analyzeAndRecommend} 
@@ -279,35 +298,117 @@ export const CropAdvisor = () => {
                 <p>Analyze your soil to get crop recommendations</p>
               </div>
             ) : (
-              <div className="space-y-4">
+              <div className="space-y-6">
                 {recommendations.map((rec, index) => (
-                  <div key={index} className="p-4 border rounded-lg space-y-3 hover:shadow-crop transition-all duration-300">
-                    <div className="flex items-center justify-between">
-                      <h3 className="font-semibold text-lg">{rec.crop}</h3>
-                      <Badge variant="secondary" className="bg-gradient-crop text-success-foreground">
-                        {rec.confidence}% confidence
-                      </Badge>
-                    </div>
-                    
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between text-sm">
-                        <span>Suitability Score</span>
-                        <span className="font-medium">{rec.suitability_score}/100</span>
+                  <Card key={index} className="p-6 border-2 hover:shadow-crop transition-all duration-300 animate-grow">
+                    <div className="space-y-4">
+                      {/* Header */}
+                      <div className="flex items-center justify-between">
+                        <h3 className="text-2xl font-bold flex items-center gap-2">
+                          <Sprout className="h-6 w-6 text-success" />
+                          {rec.crop}
+                        </h3>
+                        <div className="flex gap-2">
+                          <Badge variant="secondary" className="bg-gradient-crop text-success-foreground">
+                            {rec.confidence}% confidence
+                          </Badge>
+                          <Badge 
+                            variant={rec.suitability_score >= 80 ? "default" : rec.suitability_score >= 60 ? "secondary" : "destructive"}
+                            className="flex items-center gap-1"
+                          >
+                            {rec.suitability_score >= 80 ? <CheckCircle className="h-3 w-3" /> : 
+                             rec.suitability_score >= 60 ? <Target className="h-3 w-3" /> : 
+                             <AlertTriangle className="h-3 w-3" />}
+                            {rec.suitability_score >= 80 ? 'Excellent' : 
+                             rec.suitability_score >= 60 ? 'Good' : 'Challenging'}
+                          </Badge>
+                        </div>
                       </div>
-                      <Progress value={rec.suitability_score} className="h-2" />
+                      
+                      {/* Suitability Score */}
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between text-sm">
+                          <span className="font-medium">Suitability Score</span>
+                          <span className="font-bold text-lg">{rec.suitability_score}/100</span>
+                        </div>
+                        <Progress value={rec.suitability_score} className="h-3" />
+                      </div>
+
+                      <Tabs defaultValue="details" className="w-full">
+                        <TabsList className="grid w-full grid-cols-4">
+                          <TabsTrigger value="details">Details</TabsTrigger>
+                          <TabsTrigger value="fertilizer">Fertilizer</TabsTrigger>
+                          <TabsTrigger value="yield">Yield</TabsTrigger>
+                          <TabsTrigger value="risks">Risks</TabsTrigger>
+                        </TabsList>
+                        
+                        <TabsContent value="details" className="space-y-3 mt-4">
+                          <div className="p-4 bg-muted/50 rounded-lg">
+                            <p className="text-sm leading-relaxed">{rec.notes}</p>
+                          </div>
+                        </TabsContent>
+                        
+                        <TabsContent value="fertilizer" className="space-y-3 mt-4">
+                          <div className="p-4 bg-gradient-harvest/10 rounded-lg border border-warning/20">
+                            <div className="flex items-start gap-2">
+                              <Zap className="h-5 w-5 text-warning mt-0.5" />
+                              <div>
+                                <p className="font-medium text-warning-foreground mb-1">Recommended Fertilizer:</p>
+                                <p className="text-sm">{rec.fertilizer_suggestion}</p>
+                              </div>
+                            </div>
+                          </div>
+                        </TabsContent>
+                        
+                        <TabsContent value="yield" className="space-y-3 mt-4">
+                          {rec.yield_prediction && (
+                            <div className="p-4 bg-gradient-crop/10 rounded-lg border border-success/20">
+                              <div className="flex items-center gap-2">
+                                <TrendingUp className="h-5 w-5 text-success" />
+                                <div>
+                                  <p className="font-medium text-success-foreground">Expected Yield:</p>
+                                  <p className="text-2xl font-bold text-success">
+                                    {rec.yield_prediction.toLocaleString()} kg/hectare
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+                        </TabsContent>
+                        
+                        <TabsContent value="risks" className="space-y-3 mt-4">
+                          {rec.risk_factors && rec.risk_factors.length > 0 ? (
+                            <div className="space-y-2">
+                              {rec.risk_factors.map((risk, riskIndex) => (
+                                <div key={riskIndex} className="p-3 bg-destructive/5 rounded-lg border border-destructive/20 flex items-start gap-2">
+                                  <AlertTriangle className="h-4 w-4 text-destructive mt-0.5" />
+                                  <p className="text-sm text-destructive-foreground">{risk}</p>
+                                </div>
+                              ))}
+                            </div>
+                          ) : (
+                            <div className="p-4 bg-success/5 rounded-lg border border-success/20 flex items-center gap-2">
+                              <CheckCircle className="h-5 w-5 text-success" />
+                              <p className="text-sm text-success-foreground">No significant risk factors identified</p>
+                            </div>
+                          )}
+                        </TabsContent>
+                      </Tabs>
                     </div>
-                    
-                    <div className="space-y-1">
-                      <p className="text-sm font-medium">Fertilizer Recommendation:</p>
-                      <p className="text-sm text-muted-foreground">{rec.fertilizer_suggestion}</p>
-                    </div>
-                    
-                    <div className="space-y-1">
-                      <p className="text-sm font-medium">Notes:</p>
-                      <p className="text-sm text-muted-foreground">{rec.notes}</p>
-                    </div>
-                  </div>
+                  </Card>
                 ))}
+                
+                {/* ML Model Info */}
+                <div className="mt-6 p-4 bg-gradient-earth/10 rounded-lg border border-primary/20">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Lightbulb className="h-5 w-5 text-primary" />
+                    <h4 className="font-semibold text-primary-foreground">AI-Powered Analysis</h4>
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    Recommendations generated using advanced machine learning algorithms trained on agricultural data, 
+                    soil science, and regional growing patterns. Confidence scores reflect model certainty based on input parameters.
+                  </p>
+                </div>
               </div>
             )}
           </CardContent>
