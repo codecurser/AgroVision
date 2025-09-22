@@ -147,7 +147,21 @@ All colors MUST be HSL for consistent theming.
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    @apply bg-background text-foreground font-sans antialiased selection:bg-primary/20 selection:text-foreground;
+  }
+
+  h1 {
+    @apply tracking-tight;
+  }
+  h2, h3, h4 {
+    @apply tracking-tight text-foreground;
+  }
+  p {
+    @apply leading-relaxed text-muted-foreground;
+  }
+
+  .container {
+    @apply max-w-7xl;
   }
 
   /* Custom scrollbar */

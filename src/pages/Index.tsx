@@ -32,19 +32,29 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-background via-background/95 to-primary/10">
-        {/* Enhanced Background Elements */}
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/8 via-success/6 to-info/8" />
-          <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-gradient-to-bl from-primary/5 to-transparent rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-gradient-to-tr from-success/5 to-transparent rounded-full blur-3xl" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--primary)/0.05,transparent_50%)]" />
+      <section className="relative isolate min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-background via-background/95 to-primary/10">
+        {/* Background Image Layer */}
+        <img 
+          src={heroImage}
+          alt="Smart agriculture hero background"
+          className="absolute inset-0 -z-20 h-full w-full object-cover opacity-35"
+        />
+
+        {/* Global Overlays for Professional Banner Look */}
+        <div className="absolute inset-0 -z-10">
+          {/* Vignette + Vertical gradient for text legibility */}
+          <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/30 to-background/70" />
+          {/* Accents */}
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-success/5 to-info/10 mix-blend-overlay" />
+          <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-gradient-to-bl from-primary/10 to-transparent rounded-full blur-3xl" />
+          <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-gradient-to-tr from-success/10 to-transparent rounded-full blur-3xl" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--primary)/0.06,transparent_55%)]" />
         </div>
         
         <div className="container mx-auto px-6 py-12 relative z-10">
           <div className="grid lg:grid-cols-2 gap-20 items-center">
             {/* Left Content */}
-            <div className="space-y-12 animate-fade-in">
+            <div className="space-y-12 animate-fade-in bg-background/30 backdrop-blur-md rounded-3xl p-8 lg:p-10 ring-1 ring-border/40 shadow-earth">
               {/* Professional Badge */}
               <div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-primary/10 to-success/10 border border-primary/20 rounded-full backdrop-blur-sm">
                 <div className="w-2 h-2 bg-gradient-earth rounded-full animate-pulse" />
@@ -56,12 +66,12 @@ const Index = () => {
 
               {/* Main Headline */}
               <div className="space-y-8">
-                <h1 className="text-6xl lg:text-8xl font-black text-foreground leading-[0.9] tracking-tight">
+                <h1 className="text-5xl lg:text-7xl xl:text-8xl font-extrabold text-foreground leading-[1.05] lg:leading-[0.95] tracking-tight">
                   <span className="block">Smart</span>
                   <span className="block bg-gradient-to-r from-primary via-primary-glow to-success bg-clip-text text-transparent">
                     Farming
                   </span>
-                  <span className="block text-5xl lg:text-6xl font-bold text-muted-foreground/80">
+                  <span className="block text-4xl lg:text-5xl xl:text-6xl font-bold text-muted-foreground/80">
                     Revolution
                   </span>
                 </h1>
@@ -143,7 +153,7 @@ const Index = () => {
                   />
                   
                   {/* Overlay Gradient */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+                  <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
                 </div>
                 
                 {/* Floating Status Cards */}
