@@ -32,82 +32,151 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5">
       {/* Hero Section */}
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-success/5" />
-        <div className="relative">
-          <div className="container mx-auto px-6 py-24 lg:py-32">
-            <div className="grid lg:grid-cols-2 gap-16 items-center">
-              <div className="space-y-10 animate-fade-in">
-                <div className="space-y-6">
-                  <Badge variant="secondary" className="w-fit px-4 py-2 text-sm font-medium">
-                    <Leaf className="w-4 h-4 mr-2" />
-                    Next-Gen Agriculture Platform
-                  </Badge>
-                  <h1 className="text-5xl lg:text-7xl font-bold text-foreground leading-[1.1] tracking-tight">
-                    Smart Farming
-                    <span className="text-primary block bg-gradient-earth bg-clip-text text-transparent">
-                      Made Simple
-                    </span>
-                  </h1>
-                  <p className="text-xl lg:text-2xl text-muted-foreground max-w-2xl leading-relaxed">
-                    Transform your agricultural operations with AI-powered crop recommendations, 
-                    real-time IoT monitoring, and predictive weather analytics.
-                  </p>
-                </div>
-                
-                <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                  <Button 
-                    size="lg" 
-                    className="group h-14 px-8 text-lg font-semibold shadow-earth hover:shadow-glow transition-all duration-300"
-                    onClick={() => setActiveTab("crop-advisor")}
-                  >
-                    Start Smart Farming
-                    <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    size="lg"
-                    className="h-14 px-8 text-lg border-2 hover:bg-primary/5"
-                    onClick={() => setActiveTab("sensors")}
-                  >
-                    Explore Dashboard
-                  </Button>
-                </div>
+      <section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-background via-background/95 to-primary/10">
+        {/* Enhanced Background Elements */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/8 via-success/6 to-info/8" />
+          <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-gradient-to-bl from-primary/5 to-transparent rounded-full blur-3xl" />
+          <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-gradient-to-tr from-success/5 to-transparent rounded-full blur-3xl" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--primary)/0.05,transparent_50%)]" />
+        </div>
+        
+        <div className="container mx-auto px-6 py-12 relative z-10">
+          <div className="grid lg:grid-cols-2 gap-20 items-center">
+            {/* Left Content */}
+            <div className="space-y-12 animate-fade-in">
+              {/* Professional Badge */}
+              <div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-primary/10 to-success/10 border border-primary/20 rounded-full backdrop-blur-sm">
+                <div className="w-2 h-2 bg-gradient-earth rounded-full animate-pulse" />
+                <Leaf className="w-5 h-5 text-primary" />
+                <span className="text-primary font-semibold text-sm tracking-wide">
+                  NEXT-GENERATION AGRICULTURE PLATFORM
+                </span>
+              </div>
 
-                {/* Trust Indicators */}
-                <div className="grid grid-cols-3 gap-8 pt-8 border-t border-border/50">
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-primary">98%</div>
-                    <div className="text-sm text-muted-foreground">Accuracy Rate</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-success">50K+</div>
-                    <div className="text-sm text-muted-foreground">Farmers Served</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-info">24/7</div>
-                    <div className="text-sm text-muted-foreground">Monitoring</div>
-                  </div>
+              {/* Main Headline */}
+              <div className="space-y-8">
+                <h1 className="text-6xl lg:text-8xl font-black text-foreground leading-[0.9] tracking-tight">
+                  <span className="block">Smart</span>
+                  <span className="block bg-gradient-to-r from-primary via-primary-glow to-success bg-clip-text text-transparent">
+                    Farming
+                  </span>
+                  <span className="block text-5xl lg:text-6xl font-bold text-muted-foreground/80">
+                    Revolution
+                  </span>
+                </h1>
+                
+                <div className="max-w-2xl">
+                  <p className="text-2xl lg:text-3xl text-muted-foreground/90 leading-relaxed font-light">
+                    Transform agriculture with 
+                    <span className="text-primary font-semibold"> AI-powered insights</span>, 
+                    <span className="text-success font-semibold"> real-time monitoring</span>, and
+                    <span className="text-info font-semibold"> predictive analytics</span>
+                  </p>
                 </div>
               </div>
               
-              <div className="relative lg:pl-8">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-success/10 to-info/10 rounded-3xl blur-3xl animate-pulse-glow" />
-                <div className="relative">
+              {/* Professional CTA Buttons */}
+              <div className="flex flex-col sm:flex-row gap-6 pt-6">
+                <Button 
+                  size="lg" 
+                  className="group relative h-16 px-10 text-xl font-bold bg-gradient-earth hover:shadow-glow transition-all duration-500 overflow-hidden"
+                  onClick={() => setActiveTab("crop-advisor")}
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+                  <span className="relative flex items-center gap-3">
+                    Start Smart Farming
+                    <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform duration-300" />
+                  </span>
+                </Button>
+                
+                <Button 
+                  variant="outline" 
+                  size="lg"
+                  className="h-16 px-8 text-xl font-semibold border-2 border-primary/30 hover:border-primary hover:bg-primary/5 backdrop-blur-sm transition-all duration-300"
+                  onClick={() => setActiveTab("sensors")}
+                >
+                  <BarChart3 className="w-5 h-5 mr-3" />
+                  Explore Dashboard
+                </Button>
+              </div>
+
+              {/* Enhanced Trust Indicators */}
+              <div className="grid grid-cols-3 gap-8 pt-12 border-t border-gradient-to-r from-transparent via-border to-transparent">
+                <div className="text-center group">
+                  <div className="text-4xl lg:text-5xl font-black text-primary mb-2 group-hover:scale-110 transition-transform duration-300">
+                    98%
+                  </div>
+                  <div className="text-sm font-semibold text-foreground mb-1">Prediction Accuracy</div>
+                  <div className="text-xs text-muted-foreground">ML-Powered</div>
+                </div>
+                <div className="text-center group">
+                  <div className="text-4xl lg:text-5xl font-black text-success mb-2 group-hover:scale-110 transition-transform duration-300">
+                    50K+
+                  </div>
+                  <div className="text-sm font-semibold text-foreground mb-1">Active Farmers</div>
+                  <div className="text-xs text-muted-foreground">Global Network</div>
+                </div>
+                <div className="text-center group">
+                  <div className="text-4xl lg:text-5xl font-black text-info mb-2 group-hover:scale-110 transition-transform duration-300">
+                    24/7
+                  </div>
+                  <div className="text-sm font-semibold text-foreground mb-1">Live Monitoring</div>
+                  <div className="text-xs text-muted-foreground">IoT Sensors</div>
+                </div>
+              </div>
+            </div>
+            
+            {/* Right Visual */}
+            <div className="relative lg:pl-12">
+              {/* Enhanced Glow Effects */}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/15 via-success/10 to-info/15 rounded-[3rem] blur-3xl animate-pulse-glow scale-105" />
+              <div className="absolute -inset-4 bg-gradient-to-br from-primary/20 to-success/20 rounded-[3rem] blur-2xl opacity-50" />
+              
+              <div className="relative">
+                {/* Main Image */}
+                <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl">
                   <img 
                     src={heroImage} 
-                    alt="Smart Agriculture Technology in Action" 
-                    className="relative rounded-3xl shadow-2xl w-full h-auto animate-float hover:scale-105 transition-transform duration-700"
+                    alt="Advanced Smart Agriculture Technology Dashboard" 
+                    className="w-full h-auto animate-float hover:scale-105 transition-all duration-700"
                   />
-                  <div className="absolute -bottom-6 -right-6 bg-card border border-border/50 rounded-2xl p-4 shadow-crop backdrop-blur-sm">
-                    <div className="flex items-center gap-3">
-                      <div className="w-3 h-3 bg-success rounded-full animate-pulse" />
-                      <span className="text-sm font-medium">Live Monitoring Active</span>
+                  
+                  {/* Overlay Gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+                </div>
+                
+                {/* Floating Status Cards */}
+                <div className="absolute -bottom-8 -left-8 bg-card/95 border border-success/20 rounded-2xl p-6 shadow-crop backdrop-blur-md">
+                  <div className="flex items-center gap-4">
+                    <div className="w-4 h-4 bg-success rounded-full animate-pulse shadow-glow" />
+                    <div>
+                      <div className="text-sm font-bold text-foreground">System Status</div>
+                      <div className="text-xs text-success font-semibold">All Systems Active</div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="absolute -top-6 -right-6 bg-card/95 border border-primary/20 rounded-2xl p-4 shadow-earth backdrop-blur-md">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 bg-gradient-earth rounded-full flex items-center justify-center">
+                      <Cpu className="w-4 h-4 text-primary-foreground" />
+                    </div>
+                    <div>
+                      <div className="text-xs font-semibold text-muted-foreground">AI Processing</div>
+                      <div className="text-sm font-bold text-primary">Real-time</div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+        
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+          <div className="w-6 h-10 border-2 border-muted-foreground/30 rounded-full flex justify-center">
+            <div className="w-1 h-3 bg-primary rounded-full mt-2 animate-pulse" />
           </div>
         </div>
       </section>
