@@ -51,10 +51,10 @@ const Index = () => {
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--primary)/0.06,transparent_55%)]" />
         </div>
         
-        <div className="container mx-auto px-6 py-12 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-20 items-center">
-            {/* Left Content */}
-            <div className="space-y-12 animate-fade-in bg-background/30 backdrop-blur-md rounded-3xl p-8 lg:p-10 ring-1 ring-border/40 shadow-earth">
+        <div className="container mx-auto px-6 py-20 relative z-10">
+          <div className="grid grid-cols-1 items-center">
+            {/* Banner Content */}
+            <div className="space-y-12 animate-fade-in text-center max-w-4xl mx-auto">
               {/* Professional Badge */}
               <div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-primary/10 to-success/10 border border-primary/20 rounded-full backdrop-blur-sm">
                 <div className="w-2 h-2 bg-gradient-earth rounded-full animate-pulse" />
@@ -86,8 +86,8 @@ const Index = () => {
                 </div>
               </div>
               
-              {/* Professional CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-6 pt-6">
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row gap-6 pt-6 justify-center">
                 <Button 
                   size="lg" 
                   className="group relative h-16 px-10 text-xl font-bold bg-gradient-earth hover:shadow-glow transition-all duration-500 overflow-hidden"
@@ -111,8 +111,8 @@ const Index = () => {
                 </Button>
               </div>
 
-              {/* Enhanced Trust Indicators */}
-              <div className="grid grid-cols-3 gap-8 pt-12 border-t border-gradient-to-r from-transparent via-border to-transparent">
+              {/* Trust Indicators */}
+              <div className="grid grid-cols-3 gap-8 pt-12">
                 <div className="text-center group">
                   <div className="text-4xl lg:text-5xl font-black text-primary mb-2 group-hover:scale-110 transition-transform duration-300">
                     98%
@@ -137,49 +137,7 @@ const Index = () => {
               </div>
             </div>
             
-            {/* Right Visual */}
-            <div className="relative lg:pl-12">
-              {/* Enhanced Glow Effects */}
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/15 via-success/10 to-info/15 rounded-[3rem] blur-3xl animate-pulse-glow scale-105" />
-              <div className="absolute -inset-4 bg-gradient-to-br from-primary/20 to-success/20 rounded-[3rem] blur-2xl opacity-50" />
-              
-              <div className="relative">
-                {/* Main Image */}
-                <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl">
-                  <img 
-                    src={heroImage} 
-                    alt="Advanced Smart Agriculture Technology Dashboard" 
-                    className="w-full h-auto animate-float hover:scale-105 transition-all duration-700"
-                  />
-                  
-                  {/* Overlay Gradient */}
-                  <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-                </div>
-                
-                {/* Floating Status Cards */}
-                <div className="absolute -bottom-8 -left-8 bg-card/95 border border-success/20 rounded-2xl p-6 shadow-crop backdrop-blur-md">
-                  <div className="flex items-center gap-4">
-                    <div className="w-4 h-4 bg-success rounded-full animate-pulse shadow-glow" />
-                    <div>
-                      <div className="text-sm font-bold text-foreground">System Status</div>
-                      <div className="text-xs text-success font-semibold">All Systems Active</div>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="absolute -top-6 -right-6 bg-card/95 border border-primary/20 rounded-2xl p-4 shadow-earth backdrop-blur-md">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-gradient-earth rounded-full flex items-center justify-center">
-                      <Cpu className="w-4 h-4 text-primary-foreground" />
-                    </div>
-                    <div>
-                      <div className="text-xs font-semibold text-muted-foreground">AI Processing</div>
-                      <div className="text-sm font-bold text-primary">Real-time</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            
           </div>
         </div>
         
